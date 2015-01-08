@@ -6,18 +6,20 @@ define({
 			"transistor",
 			"event_master",
 			"body",
-			"event"
+			"event",
+			"listener",
 		]
 	},
 
 	make : function ( define ) {
+		console.log( define )
+		var table_body, event_circle, table_interface
 
-		var table_body, event_circle
-
-		table_body = this.library.transistor.make(
-			this.library.body.define_body( define )
+		table_body   = this.library.transistor.make(
+			this.define_body( 
+				define 
+			)
 		)
-
 		event_circle = this.library.event_master.make({
 			state  : this.define_state( define ),
 			events : this.define_event({
@@ -33,15 +35,22 @@ define({
 				event_circle : event_circle
 			})
 		)
-
-		return this.define_interface({
+		table_interface = this.define_interface({
 			body         : table_body,
 			event_master : event_circle
 		})
+
+		if ( define.inside ) { 
+			table_interface.append( define.inside )
+		}
+
+		return table_interface
 	},
 
 	define_interface : function ( define ) {
+
 		var self = this
+
 		return {
 			body      : define.body.body,
 			append    : define.body.append,
@@ -49,7 +58,7 @@ define({
 				define.event_master.stage_event({
 					called : "change table",
 					as     : function ( state ) {
-
+						
 						var new_state
 						new_state = self.define_state({
 							class_name : define.class_name,
@@ -74,12 +83,16 @@ define({
 		return this.library.event.define_state( define )
 	},
 
+	define_body : function ( define ) {
+		return this.library.body.define_body( define )
+	},
+
 	define_event : function ( define ) {
 		return this.library.event.define_event( define )
 	},
 
 	define_listener : function ( define ) {
-		return this.library.event.define_listener( define )
+		return this.library.listener.define_listener( define )
 	},
 
 	convert_string_to_option_name : function ( string ) { 

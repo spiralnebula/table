@@ -7,6 +7,8 @@ define({
 		"library/morphism",
 		"library/body",
 		"library/event",
+		"library/listener",
+		"library/bodymap",
 	],
 	package : [
 		"library/morph",

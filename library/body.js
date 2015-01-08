@@ -12,11 +12,13 @@ define({
 		var self, content
 		
 		self    = this
-		content = [
-			this.define_control_body( define )
-		]
+		content = []
 
-		if ( define.with.data ) { 
+		if ( define.with.control ) {
+			content = content.concat( this.define_control_body( define ) )
+		}
+
+		if ( define.with.data ) {
 			content = content.concat([
 				this.define_row_and_column({
 					class_name : define.class_name,
@@ -28,10 +30,18 @@ define({
 			])
 		}
 
-		return {
-			"width" : ( define.with.format.field.width * define.with.data.view.main.column.length ) + "px",
-			"class" : define.class_name.wrap,
-			"child" : content
+		if ( define.with.data ) {
+			return {
+				"width" : ( define.with.format.field.width * define.with.data.view.main.column.length ) + "px",
+				"class" : define.class_name.wrap,
+				"child" : content
+			}
+		} else {
+			return {
+				"display" : "none",
+				"class"   : define.class_name.wrap,
+				"child"   : content
+			}
 		}
 	},
 
@@ -139,15 +149,21 @@ define({
 			else_do : function ( loop ) {
 
 				var field_definition
+				
+				if ( loop.value !== null && loop.value !== undefined ) { 
+					if ( loop.value.constructor === String || loop.value.constructor === Number ) { 
+						field_definition = { 
+							"text" : loop.value
+						}
+					}
 
-				if ( loop.value.constructor === String ) { 
-					field_definition = { 
-						"text" : loop.value
-					}					
-				}
-
-				if ( loop.value.constructor === Object ) {
-					field_definition = loop.value
+					if ( loop.value.constructor === Object ) {
+						field_definition = loop.value
+					}
+				} else { 
+					field_definition = {
+						text : ""
+					}
 				}
 
 				return {
@@ -185,7 +201,7 @@ define({
 			"child" : this.library.morph.index_loop({
 				subject : this.library.morph.index_loop({
 					subject : define.with.row,
-					else_do : function ( format_loop ) { 
+					else_do : function ( format_loop ) {
 						return format_loop.into.concat(
 							self.format_row_field_definition( format_loop.indexed )
 						)

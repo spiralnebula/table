@@ -21,30 +21,13 @@
 			count_object = module.nebula.nebula.make()
 			count_object.call_this_method_on_load_completion( function ( given ) {
 
-				// Here should have a way of spliting logic and loading important module 
-				// sections, such as styles, module loads perhaps more
-				console.log( module.root )
-				requirejs(
-					module.nebula.morph.index_loop({
-						subject : module.nebula.sort.get_module_paths_with_appended_root_directory({
-							root_directory : module.root,
-							module_paths   : given.path.style
-						}),
-						else_do : function ( loop ) { 
-							return loop.into.concat( "css!"+loop.indexed )
-						}
-					}),
-					function () { 
-					// console.log("all style loaded sucessfuly")
-					}
-				)
+				requirejs( given.path.style, function () {})
 
 				module.nebula.get.require_package_modules({
 					main_module_name : module.configuration.name,
 					load_map         : given.path.module,
 					root_directory   : module.root,
 					set_global       : function ( object ) {
-
 
 						if ( module.paramaters.start_with ) {
 
@@ -92,6 +75,24 @@
 								console.warn("package cant start with \""+ module.paramaters.start_with +"\" because it does not exists in the configuration.js file")
 							}
 
+						} else if ( module.paramaters.export_as ) {
+
+							window[module.paramaters.export_as].made = module.nebula.morph.index_loop({
+								subject : window[module.paramaters.export_as].called,
+								into    : {},
+								else_do : function ( loop ) {
+									console.log( loop.indexed )
+									loop.into[loop.indexed.arguments.called] = object[loop.indexed.method].apply(
+										object, 
+										loop.indexed.arguments 
+									)
+
+									return loop.into
+								}
+							})
+
+							// window[module.paramaters.export_as] = object
+							
 						} else { 
 							object.make()
 						}

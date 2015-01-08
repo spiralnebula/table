@@ -9,11 +9,37 @@
 		paramaters.root_directory || 
 		module.get_the_root_directory_based_on_last_loaded_script_src( last_loaded_script )
 	)
+	console.log( paramaters )
+	initiate_entry            = function () {
 
-	if ( typeof window.define === 'function' && window.define.amd) {
-		console.log("amd exists")
+		if ( paramaters.export_as ) {
 
-	} else {
+			var methods_to_export_on_object, ss
+
+			methods_to_export_on_object  = ( paramaters.export_methods || "make" ).split(":")
+			window[paramaters.export_as] = {
+				called : [],
+				made   : {},
+			}
+			export_method_to_window_object = function ( given ) { 
+				
+				var export_method_name
+
+				export_method_name                               = given.method_name
+				window[paramaters.export_as][export_method_name] = function () {
+					this.called = this.called.concat({
+						method    : given.method_name,
+						arguments : Array.prototype.slice.call( arguments )
+					})
+				}
+			}
+
+			for (var index = 0; index < methods_to_export_on_object.length; index++) {
+				export_method_to_window_object({ 
+					method_name : methods_to_export_on_object[index]
+				})
+			}
+		}
 
 		if ( typeof window.jasmine === "object" ) {
 
@@ -39,7 +65,7 @@
 							"*" : {
 								"css" : paramaters.root_directory + "/nebula/require_css/css.js"
 							}
-						}
+						},
 					})
 
 					requirejs( 
@@ -84,10 +110,17 @@
 		}
 	}
 
-})( 
-	window,
-	{
+	if ( typeof window.define === 'function' && window.define.amd) {
+		initiate_entry()
+	} else {
+		initiate_entry()
+	}
 
+})( 
+
+	window,
+
+	{
 		get_the_root_directory_based_on_last_loaded_script_src : function ( last_loaded_script ) {
 			
 			var root_path, script_source_from_attribute

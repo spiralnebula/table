@@ -1,0 +1,46 @@
+<html>
+<head>
+  	<script
+  		data-export-as      = "table"
+  		data-export-methods = "make:somesome"
+		data-root-directory = "../../"
+		src                 = "../../nebula/entry.js">
+  	</script>
+  	<link 
+		rel  = "stylesheet" 
+		href = "style/main.css">
+</head>
+<body>
+	<div id="bring_it_back"></div>
+	<script>
+		window.table.make(
+			"fell_so",
+			{
+				class_name    : {},
+				inside        : document.getElementById("bring_it_back"),
+				with       : {
+					format : { 
+						field : {
+							width : 155
+						}
+					},
+					data : {
+						view : {
+							main : {
+								column : ["bring", "it", "back"],
+								row    : [
+									{ 
+										"bring" : "what",
+										"it"    : "that",
+										"back"  : "ahh",
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		)
+	</script>
+</body>
+</html>
