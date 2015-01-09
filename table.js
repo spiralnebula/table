@@ -11,6 +11,14 @@ define({
 		]
 	},
 
+	nonon : function () { 
+		console.log("some some")
+	},
+
+	define_export_name : function ( define ) { 
+		return define.called
+	},
+
 	make : function ( define ) {
 		console.log( define )
 		var table_body, event_circle, table_interface

@@ -1,46 +1,162 @@
 <html>
 <head>
+  	
   	<script
-  		data-export-as      = "table"
-  		data-export-methods = "make:somesome"
-		data-root-directory = "../../"
-		src                 = "../../nebula/entry.js">
+		src = "../../library/morph/morph.js"
+  	>
   	</script>
+
+  	<script
+		data-export-as          = "table"
+		data-export-methods     = "make:nonon"
+		data-export-name-method = "define_export_name"
+		data-root-directory     = "../../"
+		src                     = "../../nebula/entry.js"
+	>
+  	</script>
+  	<script
+		data-export-as      = "transit"
+		data-export-methods = "to"
+		data-root-directory = "../../library/transit/"
+		src                 = "../../library/transit/nebula/entry.js"
+  	>
+  	</script>
+
   	<link 
 		rel  = "stylesheet" 
 		href = "style/main.css">
 </head>
 <body>
+	
+	<div class="title">Standard Table</div>
 	<div id="bring_it_back"></div>
+
+	<div class="title">Set Value Table</div>
+	<div id="way_back"></div>
+
+	<div class="title">Url Paramater Table</div>
+	<div id="way_way_back"></div>
+
 	<script>
-		window.table.make(
-			"fell_so",
-			{
-				class_name    : {},
-				inside        : document.getElementById("bring_it_back"),
-				with       : {
-					format : { 
-						field : {
-							width : 155
-						}
-					},
-					data : {
-						view : {
-							main : {
-								column : ["bring", "it", "back"],
-								row    : [
-									{ 
-										"bring" : "what",
-										"it"    : "that",
-										"back"  : "ahh",
-									}
-								]
-							}
+
+		var class_name
+		class_name = {
+			"wrap"            : "table_wrap",
+			"content"         : "table_content",
+			"head_wrap"       : "table_head_wrap",
+			"head_name"       : "table_head_name",
+			"body_wrap"       : "table_body_wrap",
+			"row_wrap"        : "table_row_wrap",
+			"row_name"        : "table_row_name",
+			"usable_row_name" : "table_usable_row_name",
+			"control"         : "table_control",
+			"control_button"  : "table_control_button",
+			"control_text"    : "table_control_text"
+		}
+
+		window.table.make({
+			called        : "somesome",
+			class_name    : class_name,
+			inside        : document.getElementById("bring_it_back"),
+			with       : {
+				format : { 
+					field : {
+						width : 100
+					}
+				},
+				data : {
+					view : {
+						main : {
+							column : ["bring", "it", "back"],
+							row    : [
+								{ 
+									"bring" : "what",
+									"it"    : "that",
+									"back"  : "ahh",
+								},
+								{ 
+									"bring" : "some",
+									"it"    : "some2",
+									"back"  : "some3",
+								}
+							]
 						}
 					}
 				}
 			}
-		)
+		})
+
+		window.table.make({
+			called     : "someosme2",
+			class_name : class_name,
+			inside     : document.getElementById("way_back"),
+			with       : { 
+				format : { 
+					field : {
+						width : 200
+					}
+				},
+			}	
+		})
+
+		window.table.make({
+			called     : "someosme3",
+			class_name : class_name,
+			inside     : document.getElementById("way_way_back"),
+			with       : { 
+				format : { 
+					field : {
+						width : 200
+					}
+				},
+				url : { 
+					reader : function ( given ) {
+						return {
+							url  : given.url,
+							do   : "get",
+						}
+					},
+					setter : function ( given ) {
+						return { 
+							data : { 
+								view : { 
+									main : {
+										column : window.morph.get_the_keys_of_an_object( 
+											given.result 
+										),
+										row    : [
+											given.result
+										]
+									}
+								}
+							}
+						}
+					},
+				}
+			}
+		})
+
+		window.transit.to({ 
+			url : "http://date.jsontest.com", 
+			do : "get", 
+			when : { 
+				finished : function ( given ) {
+					window.table.made.someosme2.set_value({ 
+						data : { 
+							view : { 
+								main : {
+									column : window.morph.get_the_keys_of_an_object( given.result ),
+									row    : [
+										given.result
+									]
+								}
+							}
+						}
+					})
+				}
+			}
+		})
+
 	</script>
 </body>
 </html>

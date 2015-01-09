@@ -16,3 +16,71 @@ body {
 	background-color : $gray;
 	color            : $light;
 }
+
+.title {
+	font-size      : 18px;
+	text-transform : uppercase;
+	padding-bottom : $unit*2;
+	color          : $blue;
+	clear          : both;
+}
+
+.table_wrap {
+	float         : left;
+	margin-bottom : $unit*4;
+}
+
+.table_content {
+
+}
+
+.table_head_wrap {
+	width          : 100%;
+	float          : left;
+	padding-bottom :  $unit*1;
+	border-bottom  : 1px solid $blue;
+	div:last-child { 
+		border-right: none;
+	}
+}
+
+.table_head_name {
+	float        : left;
+	display      : inline-block;
+	padding      : $unit;
+	border-right : 1px solid $blue;
+	text-align   : center;
+}
+
+.table_body_wrap {
+
+}
+
+.table_row_wrap {
+	width: 100%;
+	float: left;
+}
+
+.table_row_name {
+	display : inline-block;
+	float   : left;
+	padding : $unit*2;
+	text-align: center;
+	border-bottom: 1px solid $light_ink;
+}
+
+.table_usable_row_name {
+	
+}
+
+.table_control {
+
+}
+
+.table_control_button {
+
+}
+
+.table_control_text {
+
+}
