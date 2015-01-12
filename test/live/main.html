@@ -120,16 +120,16 @@
 					reader : function ( given ) {
 						console.log( given )
 						return {
-							url  : "http://"+given.url,
+							url  : "http://"+given.paramater.url,
 							do   : "get",
 							flat : true,
 							with : {
-								json : given.paramaters
+								json : given.paramater.paramaters
 							},
 						}
 					},
 					setter : function ( given ) {
-						console.log( given )
+						// console.log( given )
 						return { 
 							data : { 
 								view : { 

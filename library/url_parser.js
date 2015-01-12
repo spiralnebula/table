@@ -31,7 +31,7 @@
 
 			if ( paramater_string.length > 1 ) {
 
-				return this.library.morph.index_loop({
+				object_of_paramaters = this.library.morph.index_loop({
 					subject : paramater_string[1].split("&"),
 					into    : {},
 					else_do : function ( loop ) {
@@ -63,7 +63,9 @@
 				})
 			}
 
-			return object_of_paramaters
+			return {
+				paramater : object_of_paramaters
+			}
 		},
 
 		is_string_a_uri_component : function ( given ) {
