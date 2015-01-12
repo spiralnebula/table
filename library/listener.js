@@ -35,7 +35,6 @@
 						var table_body, table_content
 
 						table_body             = heard.event.target
-						console.log( table_body )
 						table_body.style.width = ( 
 							heard.state.data.view[heard.state.view.current_name].column.length * 
 							define.with.format.field.width 

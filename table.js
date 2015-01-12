@@ -8,11 +8,9 @@ define({
 			"body",
 			"event",
 			"listener",
+			"transit",
+			"url_parser",
 		]
-	},
-
-	nonon : function () { 
-		console.log("some some")
 	},
 
 	define_export_name : function ( define ) { 
@@ -20,7 +18,7 @@ define({
 	},
 
 	make : function ( define ) {
-		console.log( define )
+		
 		var table_body, event_circle, table_interface
 
 		table_body   = this.library.transistor.make(
@@ -50,6 +48,28 @@ define({
 
 		if ( define.inside ) { 
 			table_interface.append( define.inside )
+		}
+
+		if ( define.with.url ) {
+			var transit_instructions
+			transit_instructions      = define.with.url.reader.call( 
+				{},
+				this.library.url_parser.get_paramaters_of_url( window.location.href )
+			)
+			transit_instructions.when = { 
+				finished : function ( given ) {
+					table_interface.set_value(
+						define.with.url.setter.call(
+							{},
+							given
+						)
+					)
+				}
+			}
+
+			this.library.transit.to(
+				transit_instructions
+			)
 		}
 
 		return table_interface

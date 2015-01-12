@@ -9,7 +9,7 @@
 		paramaters.root_directory || 
 		module.get_the_root_directory_based_on_last_loaded_script_src( last_loaded_script )
 	)
-	console.log( paramaters )
+	
 	initiate_entry            = function () {
 
 		if ( paramaters.export_as ) {

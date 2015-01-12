@@ -286,27 +286,27 @@
 		})
 	})
 
-	describe("biject array", function() {
+	// describe("biject array", function() {
 
-		it("bijects with a method that returns every value", function() {
-			expect(module.biject_array({
-				array : [1,2,3,4,5,6],
-				with  : function ( loop ) { 
-					return loop.index+loop.indexed
-				}
-			})).toEqual([1,3,5,7,9,11])
-		})
+	// 	it("bijects with a method that returns every value", function() {
+	// 		expect(module.biject_array({
+	// 			array : [1,2,3,4,5,6],
+	// 			with  : function ( loop ) { 
+	// 				return loop.index+loop.indexed
+	// 			}
+	// 		})).toEqual([1,3,5,7,9,11])
+	// 	})
 
-		it("bijects into another array cleanly", function() {
-			expect(module.biject_array({
-				array : [1,2,3],
-				into  : [4,5,6],
-				with  : function ( loop ) { 
-					return loop.indexed + loop.into.indexed
-				}
-			})).toEqual([5,7,9])
-		})
-	})
+	// 	it("bijects into another array cleanly", function() {
+	// 		expect(module.biject_array({
+	// 			array : [1,2,3],
+	// 			into  : [4,5,6],
+	// 			with  : function ( loop ) { 
+	// 				return loop.indexed + loop.into.indexed
+	// 			}
+	// 		})).toEqual([5,7,9])
+	// 	})
+	// })
 
 	describe("get object from arrays", function ( ) {
 		it("merges", function() {

@@ -9,6 +9,7 @@ define({
 		"library/event",
 		"library/listener",
 		"library/bodymap",
+		"library/url_parser",
 	],
 	package : [
 		"library/morph",

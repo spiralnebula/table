@@ -39,8 +39,9 @@
 
 	<script>
 
-		var class_name
-		class_name = {
+		var class_name, url_paramaters, paramater_test_url
+
+		class_name         = {
 			"wrap"            : "table_wrap",
 			"content"         : "table_content",
 			"head_wrap"       : "table_head_wrap",
@@ -52,6 +53,12 @@
 			"control"         : "table_control",
 			"control_button"  : "table_control_button",
 			"control_text"    : "table_control_text"
+		}
+		url_paramaters     = "?url=validate.jsontest.com&paramaters=%7B%22key%22%3A%22value%22%7D"
+		paramater_test_url = window.location.origin + window.location.pathname + url_paramaters
+		if ( ( window.location.href ) !==  paramater_test_url ) {
+			console.log( paramater_test_url )
+			window.location.replace( paramater_test_url )
 		}
 
 		window.table.make({
@@ -111,12 +118,18 @@
 				},
 				url : { 
 					reader : function ( given ) {
+						console.log( given )
 						return {
-							url  : given.url,
+							url  : "http://"+given.url,
 							do   : "get",
+							flat : true,
+							with : {
+								json : given.paramaters
+							},
 						}
 					},
 					setter : function ( given ) {
+						console.log( given )
 						return { 
 							data : { 
 								view : { 
