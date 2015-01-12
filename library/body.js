@@ -144,6 +144,8 @@ define({
 	},
 
 	format_row_field_definition : function ( definition ) {
+
+		var self = this
 		return this.library.morph.object_loop({
 			subject : definition,
 			else_do : function ( loop ) {
@@ -151,20 +153,31 @@ define({
 				var field_definition
 				
 				if ( loop.value !== null && loop.value !== undefined ) { 
+
 					if ( loop.value.constructor === String || loop.value.constructor === Number ) { 
 						field_definition = { 
 							"text" : loop.value
 						}
 					}
 
+					if ( loop.value.constructor === Boolean ) { 
+						field_definition = {
+							"text" : loop.value.toString()
+						}
+					}
+
 					if ( loop.value.constructor === Object ) {
 						field_definition = loop.value
 					}
-				} else { 
+
+				} else {
+
 					field_definition = {
 						text : ""
 					}
 				}
+
+				// console.log( field_definition )
 
 				return {
 					key   : loop.key,
@@ -172,26 +185,6 @@ define({
 				}
 			}
 		})
-	},
-
-	define_row_field : function ( define ) { 
-		var definition
-
-		definition = {
-			"class" : (
-				define.with.view ? 
-					define.class_name.usable_row_name	:
-					define.class_name.row_name
-			),
-			"text"  : define.with.text,
-			"width" : define.format.field.width +"px"
-		}
-
-		if ( define.with.view ) { 
-			definition["data-table-choose-view"] = define.with.view
-		}
-
-		return definition
 	},
 
 	define_row : function ( define ) {
@@ -231,4 +224,45 @@ define({
 			})
 		}
 	},
+
+
+	define_row_field : function ( define ) { 
+		
+		var definition
+
+		definition = {
+			"class" : define.class_name.row_name,
+			"text"  : define.with.text,
+			"width" : define.format.field.width +"px"
+		}
+
+		if ( define.with.view ) { 
+			definition["data-table-choose-view"] = define.with.view
+		}
+
+		if ( define.with.link ) { 
+			definition["type"]  = "a"
+			definition["class"] = define.class_name.link_row_name
+			definition["href"]  = define.with.link
+		}
+
+		return definition
+	},
+
+	convert_field_instruction_to_definition : function ( given ) { 
+		
+		var self, definition
+
+		self       = this
+		definition = {
+			"text" : given.instruction.text
+		}
+		// console.log( given.instruction.link )
+		if ( given.instruction.link ) { 
+			definition.type = "a"
+			definition.href = given.instruction.link
+		}
+		// console.log( definition )
+		return definition
+	}
 })

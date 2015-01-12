@@ -71,11 +71,12 @@
 		is_string_a_uri_component : function ( given ) {
 			var symbol_to_encoding, number_of_matched_symbols
 			symbol_to_encoding = {
-				"{" : "%7B",
-				":" : "%3A",
-				"/" : "%2F",
-				"}" : "%7D",
-				";" : "%3B",
+				"{"     : "%7B",
+				":"     : "%3A",
+				"/"     : "%2F",
+				"}"     : "%7D",
+				";"     : "%3B",
+				"space" : "%20",
 			}
 
 			number_of_matched_symbols = this.library.morph.index_loop({

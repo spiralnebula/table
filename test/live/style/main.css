@@ -45,11 +45,14 @@ body {
   width: 100%;
   float: left; }
 
-.table_row_name {
+.table_row_name, .table_link_row_name {
   display: inline-block;
   float: left;
   padding: 20px;
   text-align: center;
   border-bottom: 1px solid #555; }
+
+.table_link_row_name {
+  color: #5CB6FA; }
 
 /*# sourceMappingURL=main.css.map */

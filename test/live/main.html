@@ -48,6 +48,7 @@
 			"head_name"       : "table_head_name",
 			"body_wrap"       : "table_body_wrap",
 			"row_wrap"        : "table_row_wrap",
+			"link_row_name"   : "table_link_row_name",
 			"row_name"        : "table_row_name",
 			"usable_row_name" : "table_usable_row_name",
 			"control"         : "table_control",
@@ -116,9 +117,11 @@
 						width : 200
 					}
 				},
-				url : { 
+				url : {
+					only_set_if : function ( given ) { 
+						return true
+					},
 					reader : function ( given ) {
-						console.log( given )
 						return {
 							url  : "http://"+given.paramater.url,
 							do   : "get",
@@ -138,7 +141,18 @@
 											given.result 
 										),
 										row    : [
-											given.result
+											{ 
+												object_or_array        : {
+													"link"  : "http://validate.jsontest.com/?json=%7B%22key%22:%22value%22%7D",
+													"text" : given.result["object_or_array"]
+												},
+												empty                  : given.result["empty"],
+												parse_time_nanoseconds : given.result[
+													"parse_time_nanoseconds"
+												],
+												validate               : given.result["validate"],
+												size                   : given.result["size"],
+											}
 										]
 									}
 								}

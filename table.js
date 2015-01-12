@@ -51,25 +51,39 @@ define({
 		}
 
 		if ( define.with.url ) {
-			var transit_instructions
-			transit_instructions      = define.with.url.reader.call( 
-				{},
-				this.library.url_parser.get_paramaters_of_url( window.location.href )
-			)
-			transit_instructions.when = { 
-				finished : function ( given ) {
-					table_interface.set_value(
-						define.with.url.setter.call(
-							{},
-							given
+
+			var transit_instructions, url_paramaters
+
+			url_paramaters = this.library.url_parser.get_paramaters_of_url( window.location.href )
+
+			if (
+				!define.with.url.only_set_if ||
+				define.with.url.only_set_if.call( {}, url_paramaters )
+			) { 
+
+				transit_instructions = define.with.url.reader.call( 
+					{},
+					url_paramaters
+				)
+				transit_instructions.when = { 
+					finished : function ( given ) {
+						table_interface.set_value(
+							define.with.url.setter.call(
+								{},
+								{
+									with   : url_paramaters,
+									result : given.result
+								}
+							)
 						)
-					)
+					}
 				}
+
+				this.library.transit.to(
+					transit_instructions
+				)
 			}
 
-			this.library.transit.to(
-				transit_instructions
-			)
 		}
 
 		return table_interface

@@ -69,6 +69,11 @@ body {
 	border-bottom: 1px solid $light_ink;
 }
 
+.table_link_row_name { 
+	@extend .table_row_name;
+	color : $blue;
+}
+
 .table_usable_row_name {
 	
 }
