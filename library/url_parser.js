@@ -64,7 +64,7 @@
 			}
 
 			return {
-				paramater : object_of_paramaters
+				paramaters : object_of_paramaters
 			}
 		},
 
