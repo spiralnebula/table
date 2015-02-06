@@ -231,9 +231,10 @@ define({
 		var definition
 
 		definition = {
-			"class" : define.class_name.row_name,
-			"text"  : define.with.text,
-			"width" : define.format.field.width +"px"
+			"class"  : define.class_name.row_name,
+			"text"   : define.with.text,
+			"height" : define.format.field.height +"px",
+			"width"  : define.format.field.width +"px"
 		}
 
 		if ( define.with.view ) { 
@@ -257,12 +258,12 @@ define({
 		definition = {
 			"text" : given.instruction.text
 		}
-		// console.log( given.instruction.link )
+
 		if ( given.instruction.link ) { 
 			definition.type = "a"
 			definition.href = given.instruction.link
 		}
-		// console.log( definition )
+
 		return definition
 	}
 })

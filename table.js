@@ -85,7 +85,7 @@ define({
 			}
 
 		}
-
+		
 		return table_interface
 	},
 
@@ -99,7 +99,7 @@ define({
 			set_value : function ( set ) {
 				define.event_master.stage_event({
 					called : "change table",
-					as     : function ( state ) {
+					as     : function () {
 						
 						var new_state
 						new_state = self.define_state({
